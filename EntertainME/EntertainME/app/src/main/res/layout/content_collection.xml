@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.shea.entertainme.CollectionActivity"
+    tools:showIn="@layout/activity_collection">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/viewCollectionButton"
+        android:id="@+id/viewCollectionButton"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="72dp"
+        android:textColor="#fdfcfc"
+        android:background="#f30654" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/editCollectionButton"
+        android:id="@+id/editCollectionButton"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/viewCollectionButton"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fdfcfc"
+        android:background="#1fc919" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/getRecommendationButton"
+        android:id="@+id/getRecommendationButton"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/deleteItemButton"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fdfcfc"
+        android:background="#316dd5" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/deleteItemButton"
+        android:id="@+id/deleteItemButton"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fdfcfc"
+        android:background="#1fc919" />
+</RelativeLayout>
