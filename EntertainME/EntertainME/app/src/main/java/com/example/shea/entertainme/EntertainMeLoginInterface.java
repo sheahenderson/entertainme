@@ -27,15 +27,6 @@ public class EntertainMeLoginInterface extends AppCompatActivity {
         dbHelper = new UserDBContract.UserDBHelper(this);
         userDB = dbHelper.getReadableDatabase();
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         final Button loginButton = (Button) findViewById(R.id.loginButton);
         final Button registerButton = (Button) findViewById(R.id.registerButton);
         final EditText usernameField = (EditText) findViewById(R.id.usernameField);

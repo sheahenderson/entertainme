@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.ListIterator;
 
 public class ViewActivity extends ListActivity {
-    public static ArrayList<Integer> idArray = new ArrayList<Integer>();
+    public static ArrayList<Integer> idArray = new ArrayList<>();
 
     private UserDBContract.UserDBHelper helper;
     private SQLiteDatabase userDB;
@@ -37,15 +37,15 @@ public class ViewActivity extends ListActivity {
             UserDBContract.MovieEntry.COLUMN_NAME_RATING,
             UserDBContract.MovieEntry.COLUMN_NAME_GENRE};
 
-    /*private String[] BOOK_PROJECTION = new String[] {
+    private String[] BOOK_PROJECTION = new String[] {
             UserDBContract.BookEntry._ID,
             UserDBContract.BookEntry.COLUMN_NAME_TITLE,
             UserDBContract.BookEntry.COLUMN_NAME_RATING,
             UserDBContract.BookEntry.COLUMN_NAME_GENRE
-    };*/
+    };
 
     private String movieSortOrder = UserDBContract.MovieEntry.COLUMN_NAME_TITLE + " DESC";
-    //private String bookSortOrder = UserDBContract.BookEntry.COLUMN_NAME_TITLE + " DESC";
+    private String bookSortOrder = UserDBContract.BookEntry.COLUMN_NAME_TITLE + " DESC";
 
     private Cursor c;
     @Override
@@ -58,10 +58,16 @@ public class ViewActivity extends ListActivity {
         userDB = helper.getReadableDatabase();
         Bundle extras = getIntent().getExtras();
         int requestedView = Constants.VIEW_MOVIE;
-        /*if (extras != null) {
+        if (extras != null) {
             requestedView = extras.getInt(Constants.EXTRAS_VIEW);
-        }*/
+        }
         displayRequest(requestedView);
+    }
+
+    @Override
+    protected void onStop() {
+        userDB.close();
+        super.onStop();
     }
 
     @Override
@@ -82,7 +88,7 @@ public class ViewActivity extends ListActivity {
                         movieSortOrder
                 );
                 break;
-            /*case Constants.VIEW_BOOK:
+            case Constants.VIEW_BOOK:
                 c = userDB.query(
                         UserDBContract.BookEntry.TABLE_NAME,
                         BOOK_PROJECTION,
@@ -92,7 +98,7 @@ public class ViewActivity extends ListActivity {
                         null,
                         bookSortOrder
                 );
-                break;*/
+                break;
             case Constants.VIEW_REC:
                 //TODO
                 break;
@@ -101,18 +107,18 @@ public class ViewActivity extends ListActivity {
                 break;
         }
         String[] dbArray = createDBList();
-        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dbArray);
+        mAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, dbArray);
         setListAdapter(mAdapter);
     }
 
     private String[] createDBList() {
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         if (c.getCount() >= 0) {
             //Log.v("View", String.valueOf(c.getCount()));
             while (c.moveToNext()) {
                 String row = "";
                 for (int i = 0; i < c.getColumnCount(); i++) {
-                    if (c.getColumnName(i) == UserDBContract.MovieEntry._ID || c.getColumnName(i) == UserDBContract.BookEntry._ID) {
+                    if (c.getColumnName(i).equals(UserDBContract.MovieEntry._ID) || c.getColumnName(i).equals(UserDBContract.BookEntry._ID)) {
                         idArray.add(c.getInt(i));
                     }
                     else {

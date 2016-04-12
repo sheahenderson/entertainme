@@ -113,5 +113,9 @@ public class AddMovieActivity extends AppCompatActivity {
         });
     }
 
-
+    @Override
+    protected void onStop() {
+        userDB.close();
+        super.onStop();
+    }
 }

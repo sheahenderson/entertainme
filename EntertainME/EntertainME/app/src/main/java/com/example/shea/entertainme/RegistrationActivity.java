@@ -20,7 +20,6 @@ public class RegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         dbHelper = new UserDBContract.UserDBHelper(this);
-        userDB = dbHelper.getWritableDatabase();
         final EditText userNameField = (EditText) findViewById(R.id.userNameField);
         final EditText passwordField = (EditText) findViewById(R.id.passwordField);
         final EditText confirmPassword = (EditText) findViewById(R.id.confirmPasswordField);
@@ -30,6 +29,7 @@ public class RegistrationActivity extends AppCompatActivity {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                userDB = dbHelper.getWritableDatabase();
                 String username = "";
                 String password = "";
                 String confirm = "";
@@ -40,29 +40,30 @@ public class RegistrationActivity extends AppCompatActivity {
                     confirm = confirmPassword.getText().toString();
                 }
                 catch(NullPointerException e) {
-                    //emptyField = true;
-                    Toast.makeText(RegistrationActivity.this, "Please complete all fields to register", Toast.LENGTH_SHORT).show();
-                    RegistrationActivity.this.finish();
+                    closeSelf("Please complete all fields to register");
                 }
 
                 if (!password.equalsIgnoreCase(confirm) && !password.equalsIgnoreCase("")) {
-                    Toast.makeText(RegistrationActivity.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    RegistrationActivity.this.finish();
+                    closeSelf("Passwords do not match");
                 }
                 else if (!usernameUnique(username) && !username.equalsIgnoreCase("")) {
-                    Toast.makeText(RegistrationActivity.this, "That username is already in use", Toast.LENGTH_SHORT).show();
-                    RegistrationActivity.this.finish();
+                    closeSelf("That username is already in use");
                 }
                 else {
                     ContentValues values = new ContentValues();
                     values.put(UserDBContract.UserEntry.COLUMN_NAME_USERNAME, username);
                     values.put(UserDBContract.UserEntry.COLUMN_NAME_PASSWORD, password);
                     userDB.insert(UserDBContract.UserEntry.TABLE_NAME, null, values);
-                    Toast.makeText(RegistrationActivity.this, "Registration complete, please login to continue", Toast.LENGTH_SHORT).show();
-                    RegistrationActivity.this.finish();
+                    closeSelf("Registration complete, please login to continue");
                 }
             }
         });
+    }
+
+    @Override
+    protected void onStop() {
+        userDB.close();
+        super.onStop();
     }
 
     private boolean usernameUnique(String name)  {
@@ -81,14 +82,20 @@ public class RegistrationActivity extends AppCompatActivity {
         );
         if (c.getCount() > 0) {
             while (c.moveToNext()) {
-                Log.i("Registration", c.getString(0));
-                Log.i("Name", name);
+                //Log.i("Registration", c.getString(0));
+                //Log.i("Name", name);
                 if (name.equalsIgnoreCase(c.getString(0))) {
                     return false;
                 }
             }
         }
         return true;
+    }
+
+    private void closeSelf(String toastString) {
+        Toast.makeText(RegistrationActivity.this, toastString, Toast.LENGTH_SHORT).show();
+        //userDB.close();
+        RegistrationActivity.this.finish();
     }
 
 }
