@@ -27,7 +27,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".RegistrationActivity" />
         <activity
-            android:name=".AddMovieActivity"
+            android:name=".AddActivity"
             android:label="@string/title_activity_add_movie"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
