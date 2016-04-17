@@ -25,7 +25,7 @@ implements ViewDialog.ViewDialogListener {
             @Override
             public void onClick(View v) {
                 desire = Constants.DESIRE_ADD;
-                showViewDialog();
+                showViewDialog("What would you like to add?");
             }
         });
         assert viewButton != null;
@@ -33,13 +33,13 @@ implements ViewDialog.ViewDialogListener {
             @Override
             public void onClick(View v) {
                 desire = Constants.DESIRE_VIEW;
-                showViewDialog();
+                showViewDialog("What would you like to view?");
             }
         });
     }
 
-    public void showViewDialog() {
-        ViewDialog getTypeDialog = new ViewDialog();
+    public void showViewDialog(String title) {
+        DialogFragment getTypeDialog = ViewDialog.newInstance(title);
         getTypeDialog.show(getFragmentManager(), "ViewDialog");
     }
 
