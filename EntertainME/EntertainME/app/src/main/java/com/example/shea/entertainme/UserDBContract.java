@@ -1,6 +1,7 @@
 package com.example.shea.entertainme;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.provider.BaseColumns;
@@ -91,6 +92,24 @@ public final class UserDBContract {
     private static final String SQL_DELETE_MATCHLIST =
             "DROP TABLE IF EXISTS " + MatchEntry.TABLE_NAME;
 
+    public static final String[] MOVIE_PROJECTION = new String[] {
+            UserDBContract.MovieEntry._ID,
+            UserDBContract.MovieEntry.COLUMN_NAME_TITLE,
+            UserDBContract.MovieEntry.COLUMN_NAME_RATING,
+            UserDBContract.MovieEntry.COLUMN_NAME_GENRE,
+            UserDBContract.MovieEntry.COLUMN_NAME_OWNERSHIP,
+            UserDBContract.MovieEntry.COLUMN_NAME_WISHLIST
+    };
+
+    public static final String[] BOOK_PROJECTION = new String[] {
+            UserDBContract.BookEntry._ID,
+            UserDBContract.BookEntry.COLUMN_NAME_TITLE,
+            UserDBContract.BookEntry.COLUMN_NAME_RATING,
+            UserDBContract.BookEntry.COLUMN_NAME_GENRE,
+            UserDBContract.BookEntry.COLUMN_NAME_OWNERSHIP,
+            UserDBContract.BookEntry.COLUMN_NAME_WISHLIST
+    };
+
     public static class UserDBHelper extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 5;
         public static final String DATABASE_NAME = "User.db";
@@ -117,6 +136,103 @@ public final class UserDBContract {
         }
         public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             //TODO
+        }
+
+        public String getTitleColumnName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.COLUMN_NAME_TITLE;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.COLUMN_NAME_TITLE;
+                default:
+                    return null;
+            }
+        }
+
+        public String getRatingColumnName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.COLUMN_NAME_RATING;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.COLUMN_NAME_RATING;
+                default:
+                    return null;
+            }
+        }
+
+        public String getGenreColumnName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.COLUMN_NAME_GENRE;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.COLUMN_NAME_GENRE;
+                default:
+                    return null;
+            }
+        }
+
+        public String getOwnershipColumnName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.COLUMN_NAME_OWNERSHIP;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.COLUMN_NAME_OWNERSHIP;
+                default:
+                    return null;
+            }
+        }
+
+        public String getWishlistColumnName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.COLUMN_NAME_WISHLIST;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.COLUMN_NAME_WISHLIST;
+                default:
+                    return null;
+            }
+        }
+
+        public Cursor query(SQLiteDatabase db, int type) {
+             return query(db, type, true);
+        }
+
+        public Cursor query(SQLiteDatabase db, int type, boolean ascending) {
+            return query(db, type, ascending, null);
+        }
+
+        public Cursor query(SQLiteDatabase db, int type, boolean ascending, String selection) {
+            String sortOrder;
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    sortOrder = (ascending) ? MovieEntry.COLUMN_NAME_TITLE + " ASC" : MovieEntry.COLUMN_NAME_TITLE + " DESC";
+                    return db.query(
+                            MovieEntry.TABLE_NAME,
+                            MOVIE_PROJECTION,
+                            selection,
+                            null,
+                            null,
+                            null,
+                            sortOrder
+                    );
+                case Constants.VIEW_BOOK:
+                    sortOrder = (ascending) ? BookEntry.COLUMN_NAME_TITLE + " ASC" : BookEntry.COLUMN_NAME_TITLE + " DESC";
+                    return db.query(
+                            BookEntry.TABLE_NAME,
+                            BOOK_PROJECTION,
+                            selection,
+                            null,
+                            null,
+                            null,
+                            sortOrder
+                    );
+                case Constants.VIEW_REC:
+                    //TODO:
+                    return null;
+                default:
+                    return null;
+            }
+
         }
     }
 }

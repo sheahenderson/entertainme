@@ -9,12 +9,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.RadioGroup;
 import android.widget.RatingBar;
-import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.util.List;
 
 public class AddActivity extends AppCompatActivity {
     private SQLiteDatabase userDB;

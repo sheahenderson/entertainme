@@ -15,6 +15,8 @@ final public class Constants {
     public static final String EXTRAS_EDIT = "Extras_Edit";
     public static final String EXTRAS_ADD = "Extras_Add";
 
+    public static final String EXTRAS_TYPE = "Extras_Type";
+
     public static final String[] VIEW_OPTIONS = {"Movies", "Books"};
 
     private Constants() {
