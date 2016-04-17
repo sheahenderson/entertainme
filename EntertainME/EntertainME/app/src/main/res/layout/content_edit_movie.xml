@@ -27,7 +27,9 @@
         android:id="@+id/titleDisplay"
         android:layout_below="@+id/editItemTag"
         android:layout_centerHorizontal="true"
-        android:text="@string/titleDisplay" />
+        android:text="@string/titleDisplay"
+        android:editable="false"
+        android:inputType="none" />
 
     <RatingBar
         android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
         android:layout_below="@+id/ratingBar2"
         android:layout_centerHorizontal="true" />
 
-    <RadioButton
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ownershipButton"
@@ -65,7 +67,7 @@
         android:layout_below="@+id/ownershipButton"
         android:layout_centerHorizontal="true" />
 
-    <RadioButton
+    <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/ownershipButton"
