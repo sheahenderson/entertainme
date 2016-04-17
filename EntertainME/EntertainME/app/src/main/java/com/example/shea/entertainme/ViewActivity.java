@@ -35,13 +35,18 @@ public class ViewActivity extends ListActivity {
             UserDBContract.MovieEntry._ID,
             UserDBContract.MovieEntry.COLUMN_NAME_TITLE,
             UserDBContract.MovieEntry.COLUMN_NAME_RATING,
-            UserDBContract.MovieEntry.COLUMN_NAME_GENRE};
+            UserDBContract.MovieEntry.COLUMN_NAME_GENRE,
+            UserDBContract.MovieEntry.COLUMN_NAME_OWNERSHIP,
+            UserDBContract.MovieEntry.COLUMN_NAME_WISHLIST
+    };
 
     private String[] BOOK_PROJECTION = new String[] {
             UserDBContract.BookEntry._ID,
             UserDBContract.BookEntry.COLUMN_NAME_TITLE,
             UserDBContract.BookEntry.COLUMN_NAME_RATING,
-            UserDBContract.BookEntry.COLUMN_NAME_GENRE
+            UserDBContract.BookEntry.COLUMN_NAME_GENRE,
+            UserDBContract.BookEntry.COLUMN_NAME_OWNERSHIP,
+            UserDBContract.BookEntry.COLUMN_NAME_WISHLIST
     };
 
     private String movieSortOrder = UserDBContract.MovieEntry.COLUMN_NAME_TITLE + " DESC";
