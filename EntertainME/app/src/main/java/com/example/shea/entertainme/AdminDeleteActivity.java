@@ -24,13 +24,17 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdminAddActivity extends AppCompatActivity {
+/**
+ * Created by William on 4/17/2016.
+ */
+public class AdminDeleteActivity {
     private AdminDBContract.AdminDBHelper dbHelper;
     private SQLiteDatabase AdminDB;
+    private UserDBContract.UserDBHelper user_dbHelper;
+    private SQLiteDatabase userDB;
     private EditText titleText;
     private RadioGroup mediaType;
-    private EditText genreText;
-    private Button addMediaButton;
+    private Button deleteMediaButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +44,30 @@ public class AdminAddActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         dbHelper = new AdminDBContract.AdminDBHelper(this);
         AdminDB = dbHelper.getWritableDatabase();
+        user_dbHelper = new UserDBContract.UserDBHelper(this);
+        userDB = user_dbHelper.getWritableDatabase();
         titleText = (EditText) findViewById(R.id.titleField);
         mediaType = (RadioGroup) findViewById(R.id.mediaTypeGroup);
-        genreText = (EditText) findViewById(R.id.genreField);
-
-        addMediaButton = (Button) findViewById(R.id.addItemButton);
-        addMediaButton.setOnClickListener(new View.OnClickListener() {
+        deleteMediaButton = (Button) findViewById(R.id.deleteItemButton);
+        deleteMediaButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String enteredText = titleText.getText().toString();
                 int selectedType = mediaType.getCheckedRadioButtonId();
-                String selectedGenre = genreText.getText().toString();
+
                 ContentValues values = new ContentValues();
                 //if
                 if (selectedType == R.id.bookRB) {
-                    values.put(AdminDBContract.BookEntry.COLUMN_NAME_TITLE, enteredText);
-                    values.put(AdminDBContract.BookEntry.COLUMN_NAME_GENRE, selectedGenre);
-                    AdminDB.insert(AdminDBContract.BookEntry.TABLE_NAME, null,values);
+                    AdminDB.delete(AdminDBContract.BookEntry.TABLE_NAME, AdminDBContract.BookEntry.COLUMN_NAME_TITLE + "=" + enteredText, null);
+                    userDB.delete(UserDBContract.BookEntry.TABLE_NAME, UserDBContract.BookEntry.COLUMN_NAME_TITLE + "=" + enteredText, null);
                 }
                 else {
-                    values.put(AdminDBContract.MovieEntry.COLUMN_NAME_TITLE, enteredText);
-                    values.put(AdminDBContract.MovieEntry.COLUMN_NAME_GENRE, selectedGenre);
-                    AdminDB.insertOrThrow(AdminDBContract.MovieEntry.TABLE_NAME, null, values);
+                    AdminDB.delete(AdminDBContract.MovieEntry.TABLE_NAME, AdminDBContract.MovieEntry.COLUMN_NAME_TITLE + "=" + enteredText, null);
+                    userDB.delete(UserDBContract.MovieEntry.TABLE_NAME, UserDBContract.MovieEntry.COLUMN_NAME_TITLE + "=" + enteredText, null);
                 }
-                Toast.makeText(AdminAddActivity.this, "Title Added", Toast.LENGTH_LONG).show();
+                Toast.makeText(AdminAddActivity.this, "Title Removed", Toast.LENGTH_LONG).show();
                 AdminAddActivity.this.finish();
             }
         });
-    }
 
 }
