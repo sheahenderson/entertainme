@@ -91,10 +91,10 @@
         android:layout_height="wrap_content"
         android:text="@string/submitChangesButton"
         android:id="@+id/submitButton"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="51dp"
         android:background="#1fc919"
-        android:textColor="#fdfcfc" />
+        android:textColor="#fdfcfc"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -62,6 +62,7 @@ public class AddActivity extends AppCompatActivity {
                 }
                 int rating = Math.round(userRating.getRating());
                 ContentValues values = new ContentValues();
+                //TODO: Refactor this to take advantage of new helper functionality
                 if (selectedType == Constants.VIEW_BOOK) {
                     values.put(UserDBContract.BookEntry.COLUMN_NAME_TITLE, enteredText);
                     values.put(UserDBContract.BookEntry.COLUMN_NAME_GENRE, "default");

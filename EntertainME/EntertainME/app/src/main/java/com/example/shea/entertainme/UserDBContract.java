@@ -193,6 +193,17 @@ public final class UserDBContract {
             }
         }
 
+        public String getTableName(int type) {
+            switch (type) {
+                case Constants.VIEW_MOVIE:
+                    return MovieEntry.TABLE_NAME;
+                case Constants.VIEW_BOOK:
+                    return BookEntry.TABLE_NAME;
+                default:
+                    return null;
+            }
+        }
+
         public Cursor query(SQLiteDatabase db, int type) {
              return query(db, type, true);
         }

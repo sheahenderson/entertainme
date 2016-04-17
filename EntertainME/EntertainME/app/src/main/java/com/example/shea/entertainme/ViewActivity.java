@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ViewActivity extends ListActivity {
     public static ArrayList<Integer> idArray = new ArrayList<>();
-
+    private boolean first = true;
     private UserDBContract.UserDBHelper helper;
     private SQLiteDatabase userDB;
     private int requestedView;
@@ -39,6 +39,7 @@ public class ViewActivity extends ListActivity {
             requestedView = extras.getInt(Constants.EXTRAS_VIEW);
         }
         displayRequest(requestedView);
+        first = false;
     }
 
     @Override
@@ -48,11 +49,17 @@ public class ViewActivity extends ListActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        finish();
+        startActivity(getIntent());
+    }
+
+    @Override
     protected void onListItemClick(ListView I, View v, int position, long id) {
         Intent intent = new Intent(ViewActivity.this, EditActivity.class);
         intent.putExtra(Constants.EXTRAS_EDIT, idArray.get(position));
         intent.putExtra(Constants.EXTRAS_TYPE, requestedView);
-        startActivity(intent);
+        startActivityForResult(intent, 0);
     }
 
     private void displayRequest(int request) {
