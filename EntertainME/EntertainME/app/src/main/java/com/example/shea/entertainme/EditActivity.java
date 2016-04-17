@@ -63,9 +63,9 @@ public class EditActivity extends AppCompatActivity {
                 String wishes = (wishList.isChecked()) ? "yes" : "no";
                 int rating = Math.round(rBar.getRating());
                 ContentValues values = new ContentValues();
-                values.put(UserDBContract.BookEntry.COLUMN_NAME_RATING, rating);
-                values.put(UserDBContract.BookEntry.COLUMN_NAME_OWNERSHIP, owns);
-                values.put(UserDBContract.BookEntry.COLUMN_NAME_WISHLIST, wishes);
+                values.put(helper.getRatingColumnName(type), rating);
+                values.put(helper.getOwnershipColumnName(type), owns);
+                values.put(helper.getWishlistColumnName(type), wishes);
                 userDB.update(helper.getTableName(type), values, "_ID = " + ID, null);
                 Toast.makeText(EditActivity.this, "Title Updated", Toast.LENGTH_LONG).show();
                 EditActivity.this.finish();
