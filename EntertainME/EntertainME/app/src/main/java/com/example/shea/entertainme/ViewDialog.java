@@ -11,6 +11,15 @@ import android.os.Bundle;
  * Created by MBlock on 4/3/2016.
  */
 public class ViewDialog extends DialogFragment {
+
+    public static ViewDialog newInstance(String title) {
+        ViewDialog f = new ViewDialog();
+        Bundle args = new Bundle();
+        args.putString("title", title);
+        f.setArguments(args);
+        return f;
+    }
+
     public interface ViewDialogListener {
         public void onItemClick(DialogFragment dialog, int retVal);
     }
@@ -28,8 +37,12 @@ public class ViewDialog extends DialogFragment {
     }
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
+        String title = getArguments().getString("title");
+        if (title == null || title.isEmpty()) {
+            title = "What would you like to view?";
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setTitle("What would you like to view?")
+        builder.setTitle(title)
                 .setItems(Constants.VIEW_OPTIONS, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
