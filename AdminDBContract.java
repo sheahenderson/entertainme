@@ -17,6 +17,12 @@ public class AdminDBContract {
         public static final String COLUMN_NAME_GENRE = "Genre";
     }
 
+    public static abstract class UserEntry implements BaseColumns {
+        public static final String TABLE_NAME = "Users";
+        public static final String COLUMN_NAME_USER = "User";
+        public static final String COLUM_NAME_PASSWORD = "Password";
+    }
+
     public static abstract class BookEntry implements BaseColumns {
         public static final String TABLE_NAME = "Books";
         public static final String COLUMN_NAME_TITLE = "Title";
@@ -24,7 +30,7 @@ public class AdminDBContract {
     }
 
     public static abstract class AdminEntry implements BaseColumns {
-        public static final String TABLE_NAME = "User";
+        public static final String TABLE_NAME = "Admins";
         public static final String COLUMN_NAME_USERNAME = "Username";
         public static final String COLUMN_NAME_PASSWORD = "Password";
     }
@@ -48,6 +54,12 @@ public class AdminDBContract {
                     MovieEntry._ID + INT_TYPE + " PRIMARY KEY," +
                     MovieEntry.COLUMN_NAME_TITLE + TEXT_TYPE + COMMA_SEP +
                     MovieEntry.COLUMN_NAME_GENRE + TEXT_TYPE + COMMA_SEP + " )";
+
+    private static final String SQL_CREATE_USERS =
+            "CREATE TABLE " + UserEntry.TABLE_NAME + " (" +
+                    UserEntry._ID + INT_TYPE + " PRIMARY KEY," +
+                    UserEntry.COLUMN_NAME_USER + TEXT_TYPE + COMMA_SEP +
+                    UserEntry.COLUM_NAME_PASSWORD + TEXT_TYPE + COMMA_SEP + " )";
 
     private static final String SQL_CREATE_BOOKS =
             "CREATE TABLE " + BookEntry.TABLE_NAME + " (" +
@@ -77,6 +89,8 @@ public class AdminDBContract {
             "DROP TABLE IF EXISTS " + AdminEntry.TABLE_NAME;
     private static final String SQL_DELETE_MATCHLIST =
             "DROP TABLE IF EXISTS " + MatchEntry.TABLE_NAME;
+    private static final String SQL_DELETE_USERS =
+            "DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME;
 
     public static class AdminDBHelper extends SQLiteOpenHelper {
         public static final int DATABASE_VERSION = 5;
@@ -90,6 +104,7 @@ public class AdminDBContract {
             db.execSQL(SQL_CREATE_BOOKS);
             db.execSQL(SQL_CREATE_MOVIES);
             db.execSQL(SQL_CREATE_MATCH_LIST);
+            db.execSQL(SQL_CREATE_USERS);
         }
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             //TODO change this to data migration instead of recreation
@@ -97,6 +112,8 @@ public class AdminDBContract {
             db.execSQL(SQL_DELETE_BOOKS);
             db.execSQL(SQL_DELETE_MATCHLIST);
             db.execSQL(SQL_DELETE_Admin);
+            db.execSQL(SQL_DELETE_USERS);
+            db.execSQL(SQL_CREATE_USERS);
             db.execSQL(SQL_CREATE_Admin);
             db.execSQL(SQL_CREATE_MOVIES);
             db.execSQL(SQL_CREATE_BOOKS);
