@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.shea.entertainme.AddMovieActivity"
+    tools:showIn="@layout/activity_add_movie">
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="@string/titleField"
+        android:ems="10"
+        android:id="@+id/titleField"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/titleQueryTag"
+        android:id="@+id/titleQueryTag"
+        android:layout_below="@+id/titleField"
+        android:layout_alignLeft="@+id/titleField"
+        android:layout_alignStart="@+id/titleField" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_marginTop="49dp"
+        android:layout_below="@+id/titleQueryTag"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/ratingQueryTag"
+        android:id="@+id/ratingQueryTag"
+        android:layout_below="@+id/ratingBar"
+        android:layout_alignRight="@+id/titleQueryTag"
+        android:layout_alignEnd="@+id/titleQueryTag" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ownershipButton"
+        android:id="@+id/ownershipButton"
+        android:checked="false"
+        android:layout_below="@+id/ratingQueryTag"
+        android:layout_alignLeft="@+id/wishListButton"
+        android:layout_alignStart="@+id/wishListButton" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/ownershipQueryTag"
+        android:id="@+id/ownershipQueryTag"
+        android:layout_below="@+id/ownershipButton"
+        android:layout_centerHorizontal="true" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/ownershipButton"
+        android:id="@+id/wishListButton"
+        android:checked="false"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/wishListQueryTag"
+        android:id="@+id/wishListQueryTag"
+        android:layout_below="@+id/wishListButton"
+        android:layout_alignLeft="@+id/ratingBar"
+        android:layout_alignStart="@+id/ratingBar" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/addItemButton"
+        android:id="@+id/addItemButton"
+        android:layout_marginTop="57dp"
+        android:background="#1fc919"
+        android:layout_below="@+id/wishListQueryTag"
+        android:layout_centerHorizontal="true"
+        android:textColor="#fdfcfc" />
+
+</RelativeLayout>
